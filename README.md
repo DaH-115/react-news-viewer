@@ -6,7 +6,7 @@ https://newsapi.org/s/south-korea-news-api
 
 <br>
 
-### API를 연동할 때 주의할 점
+### API를 요청할 때 주의할 점
 
 - 컴포넌트가 화면에 보이는 시점에 API를 요청할 때 useEffect를 사용하여 컴포넌트가 처음 렌더링되는 시점에 API를 요청하면 된다.<br>
   여기서 주의해야 할 점은 useEffect에 등록하는 함수에 async를 붙이면 안 된다. useEffect에서 반환해야 하는 값은<br>

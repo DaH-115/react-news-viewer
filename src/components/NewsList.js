@@ -4,12 +4,12 @@ import NewsItem from "./NewsItem";
 import axios from "axios";
 
 // STYLE
-const newsListBlock = styled.div`
+const NewsListBlock = styled.div`
   box-sizing: border-box;
-  padding-bottom: 3rem;
   width: 768px;
   margin: 0 auto;
   margin-top: 2rem;
+  padding-bottom: 3rem;
   @media screen and (max-width: 768px) {
     width: 100%;
     padding-left: 1rem;
@@ -48,11 +48,11 @@ function NewsList() {
 
   // articles 값이 유효할 때
   return (
-    <newsListBlock>
+    <NewsListBlock>
       {articles.map((article) => (
         <NewsItem key={article.url} article={article} />
       ))}
-    </newsListBlock>
+    </NewsListBlock>
   );
 }
 

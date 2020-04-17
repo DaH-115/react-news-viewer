@@ -15,7 +15,7 @@ const NewsItemBlock = styled.div`
     }
   }
 
-  .content {
+  .contents {
     h2 {
       margin: 0;
       a {
@@ -24,8 +24,8 @@ const NewsItemBlock = styled.div`
     }
     p {
       margin: 0;
-      line-height: 1.5;
       margin-top: 0.5rem;
+      line-height: 1.5;
       white-space: normal;
     }
   }
