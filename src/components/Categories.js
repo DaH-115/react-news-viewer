@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const categories = [
   {
@@ -44,7 +45,7 @@ const CategoriesBlcok = styled.div`
   }
 `;
 
-const Category = styled.div`
+const Category = styled(NavLink)`
   font-size: 1.125rem;
   padding-bottom: 0.25rem;
   color: inherit;
@@ -56,30 +57,29 @@ const Category = styled.div`
     color: #495057;
   }
 
-  ${(props) =>
-    props.active &&
-    css`
-      font-weight: 600;
-      border-bottom: 2px solid #22b8cf;
-      color: #22b8cf;
-      &:hover {
-        color: #3bc9db;
-      }
-    `}
+  &.active {
+    font-weight: 600;
+    border-bottom: 2px solid #22b8cf;
+    color: #22b8cf;
+    &:hover {
+      color: #3bc9db;
+    }
+  }
 
   & + & {
     margin-left: 1rem;
   }
 `;
 
-function Categories({ onSelect, category }) {
+function Categories() {
   return (
     <CategoriesBlcok>
       {categories.map((c) => (
         <Category
           key={c.name}
-          active={category === c.name}
-          onClick={() => onSelect(c.name)}
+          activeClassName="active"
+          exact={c.name === "all"}
+          to={c.nam === "all" ? "/" : `${c.name}`}
         >
           {c.text}
         </Category>

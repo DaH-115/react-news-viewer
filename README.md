@@ -8,7 +8,7 @@ https://newsapi.org/s/south-korea-news-api
 
 ### API를 요청할 때 주의할 점
 
-- 컴포넌트가 화면에 보이는 시점에 API를 요청할 때 useEffect를 사용하여 컴포넌트가 처음 렌더링되는 시점에 API를 요청하면 된다.<br>
+- 컴포넌트가 화면에 보이는 시점에 API를 요청할 때 <b>useEffect를 사용하여 컴포넌트가 처음 렌더링되는 시점에 API를 요청하면 된다.</b><br>
   여기서 주의해야 할 점은 useEffect에 등록하는 함수에 async를 붙이면 안 된다. useEffect에서 반환해야 하는 값은<br>
   뒷정리 함수이기 때문이다. 따라서 useEffect 내부에서 async/await를 사용하고 싶다면, 함수 내부에 async 키워드가 붙은<br>
   또 다른 함수를 만들어서 사용해야 한다.
@@ -18,8 +18,20 @@ https://newsapi.org/s/south-korea-news-api
   오류가 발생하여 빈 화면만 보이게 된다
 
 ```jsx
-// 아직 articles 값이 설정되지 않았을 때 (map 함수 사용하기 전 검사)
 if (!articles) {
   return null;
 }
 ```
+
+<br>
+
+### React-Router 적용
+
+```jsx
+function App() {
+  return <Route path="/:category?" component={NewsPage} />;
+}
+```
+
+위 코드에서 path에 "/:category?"와 같은 형태로 맨 뒤에 물음표가 있는 것은 category의 값이 <b>선택적(optional)</b>이라는 의미이다.<br>
+category URL 파라미터가 없다면 전체 카테고리를 선택하 것으로 간주한다.
