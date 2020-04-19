@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import NewsItem from "./NewsItem";
 import axios from "axios";
+import usePromise from "../lib/usePromise";
 
 // STYLE
 const NewsListBlock = styled.div`
@@ -18,24 +19,11 @@ const NewsListBlock = styled.div`
 `;
 
 function NewsList({ category }) {
-  const [articles, setArticles] = useState(null); // API 로 받아오는 값
-  const [loading, setLoading] = useState(false); // Loading 상태 관리
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const query = category === "all" ? "" : `&category=${category}`;
-        const response = await axios.get(
-          `http://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=fa70351bae8948279923fab34d45d5aa`
-        );
-        setArticles(response.data.articles);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
-    fetchData();
+  const [loading, response, error] = usePromise(() => {
+    const query = category === "all" ? "" : `&category=${category}`;
+    return axios.get(
+      `http://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=fa70351bae8948279923fab34d45d5aa`
+    );
   }, [category]);
 
   // 대기(로딩) 중일 때
@@ -43,11 +31,16 @@ function NewsList({ category }) {
     return <div>Loading ...</div>;
   }
   // 아직 articles 값이 설정되지 않았을 때 (map 함수 사용하기 전 검사)
-  if (!articles) {
+  if (!response) {
     return null;
   }
 
-  // articles 값이 유효할 때
+  if (error) {
+    return <NewsList>에러 발생!</NewsList>;
+  }
+
+  const { articles } = response.data; // usePromise 의 resolved
+
   return (
     <NewsListBlock>
       {articles.map((article) => (
